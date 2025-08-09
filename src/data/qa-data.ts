@@ -1,35 +1,35 @@
 export interface SubItemData {
-  question: string;
-  answerMd: string;
+question: string;
+answerMd: string;
 }
 
 export interface QACardData {
-  category: string;
-  title: string;
-  subItems: SubItemData[];
+category: string;
+title: string;
+subItems: SubItemData[];
 }
 
 const data: QACardData[] = [
-  {
-    category: 'java',
-    title: 'Multithreading',
-    subItems: [
-      {
-        question: 'Thread Lifecycle?',
-        answerMd: `
+{
+category: 'java',
+title: 'Multithreading',
+subItems: [
+{
+question: 'Thread Lifecycle?',
+answerMd: `
 ### Thread Lifecycle Explained
 
 Understanding Thread Lifecycle is crucial for building robust, high-performance concurrent applications. We'll explore both OS-level and JVM perspectives.
 
 \`\`\`mermaid
 stateDiagram-v2
-  [*] --> NEW
-  NEW --> RUNNABLE: start()
-  RUNNABLE --> BLOCKED: lock contention
-  BLOCKED --> RUNNABLE: lock release
-  RUNNABLE --> WAITING: wait()/join()/park()
-  WAITING --> RUNNABLE: notify()/timeout/unpark
-  RUNNABLE --> TERMINATED: run() completes
+[*] --> NEW
+NEW --> RUNNABLE: start()
+RUNNABLE --> BLOCKED: lock contention
+BLOCKED --> RUNNABLE: lock release
+RUNNABLE --> WAITING: wait()/join()/park()
+WAITING --> RUNNABLE: notify()/timeout/unpark
+RUNNABLE --> TERMINATED: run() completes
 \`\`\`
 
 🚦 **State Transitions**
@@ -47,19 +47,19 @@ stateDiagram-v2
 
 ### Common APIs by State
 
-- **Creating thread**: \`new Thread(runnable)\`  
-- **Starting**: \`thread.start()\`  
-- **Blocking on lock**: \`synchronized(obj)\`, \`ReentrantLock.lock()\`  
-- **Waiting**: \`obj.wait()\`, \`LockSupport.park()\`  
-- **Timed wait**: \`Thread.sleep(ms)\`, \`obj.wait(ms)\`  
-- **Notify**: \`obj.notify()\`, \`LockSupport.unpark(thread)\`  
-- **Termination**: thread finishes \`run()\` or throws uncaught exception.  
-      `
-      },
-      // Find the “Multithreading” topic in your src/qa-data.ts and append this entry
+- **Creating thread**: \`new Thread(runnable)\`
+- **Starting**: \`thread.start()\`
+- **Blocking on lock**: \`synchronized(obj)\`, \`ReentrantLock.lock()\`
+- **Waiting**: \`obj.wait()\`, \`LockSupport.park()\`
+- **Timed wait**: \`Thread.sleep(ms)\`, \`obj.wait(ms)\`
+- **Notify**: \`obj.notify()\`, \`LockSupport.unpark(thread)\`
+- **Termination**: thread finishes \`run()\` or throws uncaught exception.
+`
+},
+// Find the “Multithreading” topic in your src/qa-data.ts and append this entry
 {
-  question: "Why Executor Framework came into picture? What problem was there in JDK 4 which it solved?",
-  answerMd: `
+question: "Why Executor Framework came into picture? What problem was there in JDK 4 which it solved?",
+answerMd: `
 ### Why Executor Framework Came Into Picture
 
 #### 🚫 Problems in JDK 4 (Before Executor)
@@ -86,14 +86,14 @@ It decouples task submission from execution, allowing better scalability and con
 ~~~java
 // Before (JDK 4):
 Thread t = new Thread(() -> {
-  // Task logic
+// Task logic
 });
 t.start();
 
 // After (JDK 5+):
 ExecutorService pool = Executors.newFixedThreadPool(4);
 pool.submit(() -> {
-  // Task logic
+// Task logic
 });
 pool.shutdown();
 ~~~
@@ -121,11 +121,11 @@ Introduced in Java 8, CompletableFuture lets you build non-blocking asynchronous
 
 ~~~text
 [start]
-  |
-  v
+|
+v
 [supplyAsync()] ---> [thenApply()] ---> [thenCompose()]
-  |                     |                     |
-  v                     v                     v
+|                     |                     |
+v                     v                     v
 [exceptionally()] --> [handle()] --> [complete()]
 ~~~
 
@@ -138,34 +138,34 @@ int result = f.get(); // blocks
 
 // CompletableFuture:
 CompletableFuture.supplyAsync(() -> fetch())
-  .thenApply(data -> transform(data))
-  .exceptionally(ex -> fallback())
-  .thenAccept(System.out::println);
+.thenApply(data -> transform(data))
+.exceptionally(ex -> fallback())
+.thenAccept(System.out::println);
 ~~~
 `
 },
-      {
-        question: 'What’s new in CompletableFuture?',
-        answerMd: `
-CompletableFuture in Java 8+ supports building async pipelines: \`thenApplyAsync\`, \`thenCombine\`, \`exceptionally\`, \`allOf\`/ \`anyOf\`, etc.
-        `
-      },
-      {
-        question: 'How do you handle thread safety?',
-        answerMd: `
-Use synchronized blocks, locks (\`ReentrantLock\`), concurrent collections, or atomic classes (\`AtomicInteger\`, \`AtomicReference\`) to coordinate access.
-        `
-      }
-    ]
-  },
-  {
-    category: 'java',
-    title: 'String Based Questions',
-    subItems: [
-      // To add under your desired Topic’s `subQuestions` array in src/qa-data.ts:
 {
-  question: "How do you print all words that appear more than once using only basic for loops (no maps/collections)?",
-  answerMd: `
+question: 'What’s new in CompletableFuture?',
+answerMd: `
+CompletableFuture in Java 8+ supports building async pipelines: \`thenApplyAsync\`, \`thenCombine\`, \`exceptionally\`, \`allOf\`/ \`anyOf\`, etc.
+`
+},
+{
+question: 'How do you handle thread safety?',
+answerMd: `
+Use synchronized blocks, locks (\`ReentrantLock\`), concurrent collections, or atomic classes (\`AtomicInteger\`, \`AtomicReference\`) to coordinate access.
+`
+}
+]
+},
+{
+category: 'java',
+title: 'String Based Questions',
+subItems: [
+// To add under your desired Topic’s `subQuestions` array in src/qa-data.ts:
+{
+question: "How do you print all words that appear more than once using only basic for loops (no maps/collections)?",
+answerMd: `
 ### Explanation
 
 We detect duplicates by:
@@ -173,9 +173,9 @@ We detect duplicates by:
 1. Normalizing the input (convert to lowercase).
 2. Splitting into words with \`String#split("\\\\s+")\`.
 3. For each word at index *i*:
-   - Skip it if it already appeared in any index \< *i* (to avoid repeats).
-   - Count how many times it occurs in the full array.
-   - If count > 1, print it.
+- Skip it if it already appeared in any index \< *i* (to avoid repeats).
+- Count how many times it occurs in the full array.
+- If count > 1, print it.
 
 This uses only primitive arrays and loops—no Maps or Collections.
 
@@ -185,37 +185,37 @@ This uses only primitive arrays and loops—no Maps or Collections.
 
 ~~~java
 public class SimpleRepeatFinder {
-    public static void main(String[] args) {
-        String input = "hi hello hello hi i am doing fine";
-        // Normalize and split by whitespace
+public static void main(String[] args) {
+String input = "hi hello hello hi i am doing fine";
+// Normalize and split by whitespace
         String[] words = input.toLowerCase().split("\\s+");
 
-        System.out.println("Repeated words:");
+System.out.println("Repeated words:");
 
-        for (int i = 0; i < words.length; i++) {
-            // Skip if this word already appeared before index i
+for (int i = 0; i < words.length; i++) {
+// Skip if this word already appeared before index i
             boolean alreadySeen = false;
-            for (int k = 0; k < i; k++) {
-                if (words[i].equals(words[k])) {
-                    alreadySeen = true;
-                    break;
-                }
-            }
-            if (alreadySeen) continue;
+for (int k = 0; k < i; k++) {
+if (words[i].equals(words[k])) {
+alreadySeen = true;
+break;
+}
+}
+if (alreadySeen) continue;
 
-            // Count occurrences of words[i]
+// Count occurrences of words[i]
             int count = 0;
-            for (int j = 0; j < words.length; j++) {
-                if (words[i].equals(words[j])) {
-                    count++;
-                }
-            }
+for (int j = 0; j < words.length; j++) {
+if (words[i].equals(words[j])) {
+count++;
+}
+}
 
-            if (count > 1) {
-                System.out.println(words[i]);
-            }
-        }
-    }
+if (count > 1) {
+System.out.println(words[i]);
+}
+}
+}
 }
 ~~~
 
@@ -638,34 +638,34 @@ Kunwr j Pthk
 \`\`\`
 `
 },
-      {
-        question: 'What’s the difference between StringBuilder and StringBuffer?',
-        answerMd: `
+{
+question: 'What’s the difference between StringBuilder and StringBuffer?',
+answerMd: `
 StringBuffer is synchronized (thread-safe) but slower. StringBuilder is unsynchronized and faster for single-thread use.
-        `
-      },
-      {
-        question: 'How do you reverse a String?',
-        answerMd: `
+`
+},
+{
+question: 'How do you reverse a String?',
+answerMd: `
 Use \`new StringBuilder(str).reverse().toString()\` or write a loop swapping characters in a \`char[]\`.
-        `
-      }
-    ]
-  },// Add this as the third card in your src/qa-data.ts
+`
+}
+]
+},// Add this as the third card in your src/qa-data.ts
 
 {
-      category: 'java',
-      title: 'Java Streams',
-      subItems: [
-      {
-      question: 'How do you filter, map, and collect elements from a List using Streams?',
-      answerMd: `
-      ### Explanation
+category: 'java',
+title: 'Java Streams',
+subItems: [
+{
+question: 'How do you filter, map, and collect elements from a List using Streams?',
+answerMd: `
+### Explanation
 
-      We start from a List, convert it to a Stream, then apply:
-      1. \`filter\` to drop unwanted elements.
-      2. \`map\` to transform each element.
-      3. \`collect\` to gather the results back into a new List.
+We start from a List, convert it to a Stream, then apply:
+1. \`filter\` to drop unwanted elements.
+2. \`map\` to transform each element.
+3. \`collect\` to gather the results back into a new List.
 
 ---
 
